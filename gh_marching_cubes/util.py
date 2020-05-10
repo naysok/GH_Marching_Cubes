@@ -81,3 +81,26 @@ class Util():
             result.append(sum(array_flip[i]))
 
         return result
+
+
+    def segment_pt4s_from_grid(self, grid):
+
+        """
+        0 1
+        2 3
+        """
+
+        pt4s = []
+
+        for i in range(len(grid) - 1):
+            for j in range(len(grid[0]) - 1):
+                pt4 = []
+
+                pt4.append(grid[i][j])
+                pt4.append(grid[i+1][j])
+                pt4.append(grid[i][j+1])
+                pt4.append(grid[i+1][j+1])
+
+                pt4s.append(pt4)
+
+        return pt4s
