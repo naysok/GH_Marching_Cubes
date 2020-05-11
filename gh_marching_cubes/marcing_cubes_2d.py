@@ -131,19 +131,46 @@ class Marching_Cubes_2d():
         # print("count : {}".format(count))
 
         ### Calc
-        result = []
-
         if count == 1:
-            result.append(self.calc_one(pts4, thr4_tf))
+            result = self.calc_one(pts4, thr4_tf)
         elif count == 2:
             l = self.calc_two(pts4, thr4_tf)
-            if len(l[0]) == 2: 
+            if len(l[0]) == 2:
+                result = []
                 result.append(l[0])
                 result.append(l[1])
             else:
-                result.append(l)
+                result = l
         elif count == 3:
-            result.append(self.calc_three(pts4, thr4_tf))
+            result = self.calc_three(pts4, thr4_tf)
+        else:
+            result = None
 
         return result
 
+
+    def gh_marcing_cubes_2d(self, points_grid, values_grid, threshold):
+
+        pp = ut.segment_pt4s_from_grid(points_grid)
+        vv = ut.segment_pt4s_from_grid(values_grid)
+
+        lines = []
+
+        for i in xrange(len(pp)):
+            l = self.calc_marcing_cubes(pp[i], vv[i], threshold)
+
+            if l != None:
+
+                ### 1 or 2
+                tmp = l[0]
+
+                if len(tmp) == 2:
+                    for j in xrange(2):
+                        lines.append(l[j])
+                else:
+                    lines.append(l)
+        
+        # print(lines)
+        # print(len(lines))
+        
+        return lines
